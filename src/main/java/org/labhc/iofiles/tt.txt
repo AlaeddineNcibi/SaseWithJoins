@@ -1,0 +1,40 @@
+Price 5  Volume 20
+ZValue 561
+Price 7  Volume 30
+ZValue 701
+Price 9  Volume 40
+ZValue 2241
+Price 11  Volume 50
+ZValue 2637
+Price 13  Volume 60
+ZValue 2801
+Price 15  Volume 70
+ZValue 8317
+Price 17  Volume 80
+ZValue 8961
+Price 19  Volume 90
+ZValue 9101
+Price 21  Volume 100
+ZValue 10545
+Price 23  Volume 110
+ZValue 10685
+Price 1000  Volume 2000
+ZValue 3143232
+Price 998  Volume 1990
+ZValue 3142716
+Price 996  Volume 1980
+ZValue 3137200
+Price 994  Volume 1970
+ZValue 3137036
+Price 992  Volume 1960
+ZValue 3136640
+Price 990  Volume 1950
+ZValue 3134460
+Price 988  Volume 1940
+ZValue 3134320
+Price 986  Volume 1930
+ZValue 3133900
+Price 984  Volume 1920
+ZValue 3133760
+Price 982  Volume 1910
+ZValue 3111740
