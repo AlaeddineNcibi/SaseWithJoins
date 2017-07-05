@@ -3,6 +3,7 @@ package org.labhc.btreeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.labhc.event.ActivityEvent;
 import org.labhc.event.Event;
 import org.labhc.event.EventType;
 import org.labhc.event.StockEvent;
@@ -32,6 +33,14 @@ public class Value {
 				return se.price;
 			else
 				return se.vol;
+
+		}
+		if (this.event.eventType == EventType.ACTIVITYEVENT) {
+			ActivityEvent se = (ActivityEvent) this.event;
+			if (pred == 1) // get the price
+				return se.rte;
+			else
+				return 0;
 
 		}
 		return 1;

@@ -23,8 +23,10 @@ public abstract class Event implements Comparable<Event> {
 		} else if (type == EventType.STOCKEVENT) {
 
 			event = StockEvent.parse(line);
-		}
-		return event;
+		}else if (type == EventType.ACTIVITYEVENT) {
+
+			event = ActivityEvent.parse(line);
+		}return event;
 	}
 
 	public Event(int ts, int i, EventType et) {

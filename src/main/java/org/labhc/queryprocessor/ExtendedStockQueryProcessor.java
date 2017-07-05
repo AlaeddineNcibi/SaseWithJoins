@@ -22,7 +22,8 @@ import org.labhc.zvalueencoder.ZIndex;
 
 public class ExtendedStockQueryProcessor extends AbstractQueryProcessor {
 	int i = 0;
-
+	//long sumTime=0;
+	//static int compt;
 	public ExtendedStockQueryProcessor(LinkedBlockingQueue<Event> i, CountDownLatch l, AbstractWindow w)
 			throws IOException {
 		super(i, l, w);
@@ -37,7 +38,7 @@ public class ExtendedStockQueryProcessor extends AbstractQueryProcessor {
 
 			StockEvent ce = (StockEvent) e;
 			updateMaxMin(ce.timestamp, ce.price, ce.vol);
-			if (i == 34)
+			//if (i == 1000)
 				stockABCQuery(ce);
 			// Integer key = zval.Zorder2d(ce.price, ce.vol);
 			ZIndex key = new ZIndex(new int[] { ce.timestamp, ce.price, ce.vol }, 2, masks);
@@ -51,6 +52,7 @@ public class ExtendedStockQueryProcessor extends AbstractQueryProcessor {
 			// }
 
 		}
+		
 
 	}
 
@@ -80,6 +82,7 @@ public class ExtendedStockQueryProcessor extends AbstractQueryProcessor {
 	}
 
 	private void stockABCQuery(StockEvent ce) throws IOException, DimensionException {
+		
 		ZIndex[] ranges = createRangesForB(ce);
 		List<Value> valB = queryStore(ce, ranges);
 		/// from B get the A bindings
@@ -98,12 +101,22 @@ public class ExtendedStockQueryProcessor extends AbstractQueryProcessor {
 		// computeMatches(valA, valB, ce);
 
 	   // createResultsABC(valA, valB, "<", ce.price);
+	//	System.out.print("c: "+ ce.id +", nb of b's: " + valB.size() + ", nb of A's: " + valA.size()
+		//+ ", Execution Time for Joins: ");
+		
+		System.out.print(ce.id +"," + valB.size() + "," + valA.size()
+		+ ",");
+		this.compt++;
 		long startTime = System.nanoTime();
 		//createResultsIEjoin3(valA, valB, ce);
-	    createResultsABCComplexJoin(valA, valB, "<", ce);
+		IEjoin.IEJoin2((ArrayList<Value>)valA, (ArrayList<Value>) valB, get_outputQueue(), ce);
+	    //createResultsABCComplexJoin(valA, valB, "<", ce);
 		long endTime = System.nanoTime();
 		long totalTime = endTime - startTime;
-		System.out.println("Execution time: " + totalTime + "ns");
+		this.sumTime=this.sumTime+=totalTime;
+		//System.out.print(totalTime + "ns");
+		System.out.print(totalTime);
+		System.out.println();
 	}
 
 	private void computeMatches(List<Value> valA, List<Value> valB, StockEvent ce) {
@@ -135,12 +148,10 @@ public class ExtendedStockQueryProcessor extends AbstractQueryProcessor {
 
 	private void createResultsIEjoin3(List<Value> a, List<Value> b, StockEvent c) throws IOException {
 		IEjoin.IEJoin3((ArrayList<Value>) a, (ArrayList<Value>) b, get_outputQueue(), c);
-
 	}
 
 	private void createResultsIEjoin2(List<Value> a, List<Value> b, StockEvent c) throws IOException {
 		IEjoin.IEJoin2((ArrayList<Value>) a, (ArrayList<Value>) b, get_outputQueue(), c);
-
 	}
 
 	/**
@@ -301,13 +312,13 @@ public class ExtendedStockQueryProcessor extends AbstractQueryProcessor {
 
 			}
 			
-			if (numofsetbits > 0){
-				System.out.println("before combinations"+i);
+		/*	if (numofsetbits > 0){
+				//System.out.println("before combinations"+i);
 				outputCombinations(a.get(i).event.id, b, numofsetbits, b.size() - 1, ((StockEvent) c).id, setbits);
-				System.out.println("after combinations"+i);
+				//System.out.println("after combinations"+i);
 			}
 				
-
+		*/
 		}
 
 	}

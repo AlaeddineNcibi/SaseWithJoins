@@ -26,6 +26,9 @@ public abstract class AbstractQueryProcessor implements Runnable {
 	
 
 //	final static Logger logger = LoggerFactory.getLogger(AbstractQueryProcessor.class);
+	
+	public long sumTime=0;
+	public int compt=0;
 	private final LinkedBlockingQueue<Event> _inputQueue;
 
 	private final LinkedBlockingQueue<String> _outputQueue = new LinkedBlockingQueue<>();
@@ -104,6 +107,7 @@ public abstract class AbstractQueryProcessor implements Runnable {
 				e = _inputQueue.take();
 			} catch (InterruptedException exception) {
 				// TODO Auto-generated catch block
+				
 				exception.printStackTrace();
 			}
 			if (e.eventType == EventType.POISONPILL) {
@@ -117,8 +121,9 @@ public abstract class AbstractQueryProcessor implements Runnable {
 				}
 			}
 		}
-
+		
 		finish();
+		
 
 	}
 

@@ -17,9 +17,10 @@ public class TestStockEventGenerator {
 	public static void main(String[] args) throws IOException {
 		TestStockEventGenerator tg = new TestStockEventGenerator();
 		// for (int i = 0; i < 10000; i++) {
-		tg.generateUpstream(1000);
-		tg.generateDownStream(100);
-		tg.generateUpstream(1000);
+	//	tg.generateUpstream(1000);
+	//	tg.generateDownStream(100);
+	//	tg.generateUpstream(1000);
+		tg.generateMixStream(1000);
 		// }
 
 		tg.close();
@@ -83,4 +84,26 @@ public class TestStockEventGenerator {
 		}
 	}
 
+	
+	public void generateMixStream(int max) throws IOException {
+
+		int price = max;
+
+		int vol = max;
+		for (int i = 10; i < max; i++) {
+
+			String id = Integer.toString(i);
+
+			String p = Integer.toString(price);
+
+			String v = Integer.toString(vol);
+			outputWriter.write(id + "," + id + "," + p + "," + v);
+			outputWriter.newLine();
+
+			price = price + 2;
+			vol = vol - 5;
+		}
+	}
+	
+	
 }

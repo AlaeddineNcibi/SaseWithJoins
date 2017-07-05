@@ -2,5 +2,5 @@ package org.labhc.event;
 
 public enum EventType {
 
-	CHECKEVENT, STOCKEVENT, POISONPILL;
+	CHECKEVENT, STOCKEVENT, POISONPILL, ACTIVITYEVENT;
 }
