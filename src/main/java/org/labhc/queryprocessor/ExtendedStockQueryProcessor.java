@@ -110,7 +110,7 @@ public class ExtendedStockQueryProcessor extends AbstractQueryProcessor {
 		long startTime = System.nanoTime();
 		//createResultsIEjoin3(valA, valB, ce);
 		IEjoin.IEJoin2((ArrayList<Value>)valA, (ArrayList<Value>) valB, get_outputQueue(), ce);
-	    //createResultsABCComplexJoin(valA, valB, "<", ce);
+	   //createResultsABCComplexJoin(valA, valB, "<", ce);
 		long endTime = System.nanoTime();
 		long totalTime = endTime - startTime;
 		this.sumTime=this.sumTime+=totalTime;

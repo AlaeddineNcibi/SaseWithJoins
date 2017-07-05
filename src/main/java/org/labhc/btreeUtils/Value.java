@@ -71,6 +71,22 @@ public class Value {
 			}
 		}
 
+		
+		if (this.event.eventType == EventType.ACTIVITYEVENT) {
+			ActivityEvent se = (ActivityEvent) this.event;
+			if (pred == 1) { // get the price
+
+				if (se.rte == ((ActivityEvent) o.event).rte)
+					return 0;
+				return se.rte > ((ActivityEvent) o.event).rte ? 1 : -1;
+
+			} else{
+				if (se.timestamp == ((ActivityEvent) o.event).timestamp)
+					return 0;
+				return se.timestamp > ((ActivityEvent) o.event).timestamp ? 1 : -1;
+			}
+		}
+		
 		return 0;
 	}
 

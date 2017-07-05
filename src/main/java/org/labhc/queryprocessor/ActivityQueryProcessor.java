@@ -106,8 +106,9 @@ public class ActivityQueryProcessor extends AbstractQueryProcessor {
 		this.compt++;
 		long startTime = System.nanoTime();
 		//createResultsIEjoin3(valA, valB, ce);
-		IEjoin.IEJoin2((ArrayList<Value>)valA, (ArrayList<Value>) valB, get_outputQueue(), ce);
-	    //createResultsABCComplexJoin(valA, valB, "<", ce);
+		//IEjoin.IEJoin2((ArrayList<Value>)valA, (ArrayList<Value>) valB, get_outputQueue(), ce);
+	    createResultsABCComplexJoin(valA, valB, "<", ce);
+	    createResultsABCComplexJoin2(valA, valB, "<", ce);
 		long endTime = System.nanoTime();
 		long totalTime = endTime - startTime;
 		System.out.print(ce.id +"," + valB.size() + "," + valA.size()
@@ -312,6 +313,61 @@ public class ActivityQueryProcessor extends AbstractQueryProcessor {
 
 	}
 
+	
+	
+	private void createResultsABCComplexJoin2(List<Value> a, List<Value> b, String bop, Event c) throws IOException {
+
+		Collections.sort(a, new TimeComparator());
+
+		Collections.sort(b, new TimeComparator());
+
+		int start = b.size() - 1;
+		/// int end = b.size();
+		int pos = 0;
+		int numofsetbits = 0;
+		int[] setbits; // = new int[b.size()];
+		for (int i = a.size() - 1; i >= 0; i--) {
+			setbits = new int[b.size()];
+
+			numofsetbits = 0;
+			start = b.size() - 1;
+
+			pos = b.size() - 1;
+
+			while (start >= 0) {
+				if (b.get(start).compareTo(a.get(i), 0) >= 1 && b.get(start).compareTo(a.get(i), 1) < 0) {
+
+					setbits[pos] = start;
+					pos--;
+
+					// outputCombinations2(a.get(i).p, b, start, b.size(),
+					// check);
+					start--;
+					// end--;
+					numofsetbits++;
+					/// matches over
+					/// from start till the end of the list produce the patterns
+				} /// here
+				else if (b.get(start).compareTo(a.get(i), 0) < 0)
+					break;
+				else {
+					start--;
+				}
+
+			}
+			
+		/*	if (numofsetbits > 0){
+				//System.out.println("before combinations"+i);
+				outputCombinations(a.get(i).event.id, b, numofsetbits, b.size() - 1, ((StockEvent) c).id, setbits);
+				//System.out.println("after combinations"+i);
+			}
+				
+		*/
+		}
+
+	}
+	
+	
 	private void outputCombinations(int element, List<Value> b, int numofsetbits, int end, int c, int[] setbits)
 			throws IOException {
 
